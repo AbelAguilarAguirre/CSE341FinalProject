@@ -9,9 +9,10 @@ router.get('/', reservationsController.getAll);
 
 router.get('/:id', reservationsController.getSingle);
 
-router.post('/', isAuthenticated, validation.saveReservation, reservationsController.createReservation);
+router.post('/', isAuthenticated, validation.reservationRules, reservationsController.createReservation);
 
-router.put('/:id', isAuthenticated, validation.saveReservation, reservationsController.updateReservation);
+router.put('/:id', isAuthenticated, validation.reservationRules, reservationsController.updateReservation);
+
 
 router.delete('/:id', isAuthenticated, reservationsController.deleteReservation);
 
