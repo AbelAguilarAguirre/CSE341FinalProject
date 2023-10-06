@@ -13,7 +13,6 @@ router.post('/', isAuthenticated, validation.reservationRules, reservationsContr
 
 router.put('/:id', isAuthenticated, validation.reservationRules, reservationsController.updateReservation);
 
-
 router.delete('/:id', isAuthenticated, reservationsController.deleteReservation);
 
 module.exports = router;
