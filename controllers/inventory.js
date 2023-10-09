@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAllItems = (req, res) => {
+    //#swagger.tags=['Inventory']
     const db = mongodb.getDb();
     db.collection('inventory')
         .find()
@@ -15,6 +16,7 @@ const getAllItems = (req, res) => {
 };
 
 const createItem = (req, res) => {
+    //#swagger.tags=['Inventory']
     const db = mongodb.getDb();
     const { itemName, description, unitCost, inStock } = req.body;
     const inventory = {
@@ -34,6 +36,7 @@ const createItem = (req, res) => {
 };
 
 const getInventoryById = (req, res) => {
+    //#swagger.tags=['Inventory']
     const db = mongodb.getDb();
     db.collection('inventory')
         .findOne({ _id: ObjectId(req.params.inventoryid) })
@@ -46,6 +49,7 @@ const getInventoryById = (req, res) => {
 };
 
 const updateInventory = (req, res) => {
+    //#swagger.tags=['Inventory']
     const db = mongodb.getDb();
     const inventory = {
         inventory_itemName: req.body.inventory_itemName,
@@ -68,6 +72,7 @@ const updateInventory = (req, res) => {
 };
 
 const deleteInventory = (req, res) => {
+    //#swagger.tags=['Inventory']
     const db = mongodb.getDb();
     db.collection('inventory')
         .deleteOne({ _id: ObjectId(req.params.id) })

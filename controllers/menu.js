@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAllMenu = (req, res) => {
+    //#swagger.tags=['Menu']
     const db = mongodb.getDb();
     db.collection('menu')
         .find()
@@ -15,6 +16,7 @@ const getAllMenu = (req, res) => {
 };
 
 const createMenu = (req, res) => {
+    //#swagger.tags=['Menu']
     const db = mongodb.getDb();
     const { menuName, category, cost, orderHistory } = req.body;
     const menu = {
@@ -34,6 +36,7 @@ const createMenu = (req, res) => {
 };
 
 const getMenuById = (req, res) => {
+    //#swagger.tags=['Menu']
     const db = mongodb.getDb();
     db.collection('menu')
         .findOne({ _id: ObjectId(req.params.menuid) })
@@ -46,6 +49,7 @@ const getMenuById = (req, res) => {
 };
 
 const updateMenu = (req, res) => {
+    //#swagger.tags=['Menu']
     const db = mongodb.getDb();
     const menu = {
         menu_menuName: req.body.menu_menuName,
@@ -68,6 +72,7 @@ const updateMenu = (req, res) => {
 };
 
 const deleteMenu = (req, res) => {
+    //#swagger.tags=['Menu']
     const db = mongodb.getDb();
     db.collection('menu')
         .deleteOne({ _id: ObjectId(req.params.id) })
