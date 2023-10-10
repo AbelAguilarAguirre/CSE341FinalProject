@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = (req, res) => {
+    //#swagger.tags=['Reservations']
     const db = mongodb.getDb();
     db.collection('reservations')
         .find()
@@ -15,6 +16,7 @@ const getAll = (req, res) => {
 };
 
 const getSingle = (req, res) => {
+    //#swagger.tags=['Reservations']
     const db = mongodb.getDb();
     db.collection('reservations')
         .findOne({ _id: ObjectId(req.params.id) })
@@ -27,6 +29,7 @@ const getSingle = (req, res) => {
 };
 
 const createReservation = (req, res) => {
+    //#swagger.tags=['Reservations']
     const db = mongodb.getDb();
     const { reservation_date, reservation_time, reservation_party, reservation_name, reservation_phone, reservation_email, reservation_notes } = req.body;
     const reservation = {
@@ -49,6 +52,7 @@ const createReservation = (req, res) => {
 };
 
 const updateReservation = (req, res) => {
+    //#swagger.tags=['Reservations']
     const db = mongodb.getDb();
     const reservation = {
         reservation_date: req.body.reservation_date,
@@ -70,6 +74,7 @@ const updateReservation = (req, res) => {
 };
 
 const deleteReservation = (req, res) => {
+    //#swagger.tags=['Reservations']
     const db = mongodb.getDb();
     db.collection('reservations')
         .deleteOne({ _id: ObjectId(req.params.id) })

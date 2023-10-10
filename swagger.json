@@ -23,6 +23,9 @@
     },
     "/employees/": {
       "get": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -37,6 +40,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "parameters": [
           {
@@ -120,6 +126,9 @@
     },
     "/employees/{lastname}": {
       "get": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "parameters": [
           {
@@ -144,6 +153,9 @@
     },
     "/employees/{employeeid}": {
       "get": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "parameters": [
           {
@@ -166,6 +178,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "parameters": [
           {
@@ -220,6 +235,9 @@
     },
     "/employees/{id}": {
       "delete": {
+        "tags": [
+          "Employees"
+        ],
         "description": "",
         "parameters": [
           {
@@ -242,8 +260,11 @@
         }
       }
     },
-    "/reservations/": {
+    "/menu/": {
       "get": {
+        "tags": [
+          "Menu"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -255,6 +276,181 @@
         }
       },
       "post": {
+        "tags": [
+          "Menu"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "menu_menuName": {
+                  "example": "any"
+                },
+                "menu_category": {
+                  "example": "any"
+                },
+                "menu_cost": {
+                  "example": "any"
+                },
+                "menu_orderHistory": {
+                  "example": "any"
+                },
+                "menuName": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "cost": {
+                  "example": "any"
+                },
+                "orderHistory": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/menu/{id}": {
+      "get": {
+        "tags": [
+          "Menu"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Menu"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "menu_menuName": {
+                  "example": "any"
+                },
+                "menu_category": {
+                  "example": "any"
+                },
+                "menu_cost": {
+                  "example": "any"
+                },
+                "menu_orderHistory": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Menu"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reservations/": {
+      "get": {
+        "tags": [
+          "Reservations"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Reservations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -306,6 +502,9 @@
     },
     "/reservations/{id}": {
       "get": {
+        "tags": [
+          "Reservations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -325,6 +524,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Reservations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -380,6 +582,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Reservations"
+        ],
         "description": "",
         "parameters": [
           {
@@ -392,6 +597,178 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/inventory/": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "inventory_itemName": {
+                  "example": "any"
+                },
+                "inventory_description": {
+                  "example": "any"
+                },
+                "inventory_unitCost": {
+                  "example": "any"
+                },
+                "inventory_inStock": {
+                  "example": "any"
+                },
+                "itemName": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "unitCost": {
+                  "example": "any"
+                },
+                "inStock": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/inventory/{id}": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Inventory"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "inventory_itemName": {
+                  "example": "any"
+                },
+                "inventory_description": {
+                  "example": "any"
+                },
+                "inventory_unitCost": {
+                  "example": "any"
+                },
+                "inventory_inStock": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Inventory"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
