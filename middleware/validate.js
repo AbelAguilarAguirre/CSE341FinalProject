@@ -43,7 +43,47 @@ const employeeRules = (req, res, next) => {
     });
 };
 
+const menuRules = (req, res, next) => {
+    const validationRule = {
+        menu_menuName: "required|string",
+        menu_category: "string",
+        menu_cost: "required|number",
+        menu_orderHistory: "required|number",
+    };
+    validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(400).send({
+                status: status,
+                message: err
+            });
+        } else {
+            next();
+        }
+    });
+};
+
+const inventoryRules = (req, res, next) => {
+    const validationRule = {
+        inventory_itemName: "required|string",
+        inventory_description: "string",
+        inventory_unitCost: "required|number",
+        inventory_inStock: "required|number",
+    };
+    validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(400).send({
+                status: status,
+                message: err
+            });
+        } else {
+            next();
+        }
+    });
+};
+
 module.exports = {
     reservationRules,
-    employeeRules
+    employeeRules,
+    menuRules,
+    inventoryRules
 };
