@@ -49,7 +49,7 @@ const getEmployeeById = async (req, res) => {
     const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
     result.toArray().then((employees) => {
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(employees);
+        res.status(200).json(employees[0]);
     })
         .catch((err) => {
             res.status(500).json({ message: err.message });
@@ -62,7 +62,7 @@ const getEmployeesByLastName = async (req, res) => {
     const result = await mongodb.getDb().db().collection('employees').find({ last_name: lastname });
     result.toArray().then((employees) => {
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(employees);
+        res.status(200).json(employees[0]);
     })
         .catch((err) => {
             res.status(500).json({ message: err.message });

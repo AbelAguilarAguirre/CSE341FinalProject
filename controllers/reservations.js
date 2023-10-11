@@ -26,7 +26,7 @@ const getSingle = async (req, res) => {
     const result = await mongodb.getDb().db().collection('reservations').find({ _id: reservationId });
     result.toArray().then((reservations) => {
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(reservations);
+        res.status(200).json(reservations[0]);
     })
         .catch((err) => {
             res.status(500).json({ message: err.message });
