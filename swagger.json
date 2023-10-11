@@ -51,37 +51,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "employee_first_name": {
+                "first_name": {
                   "example": "any"
                 },
-                "employee_last_name": {
+                "last_name": {
                   "example": "any"
                 },
-                "employee_email": {
+                "email": {
                   "example": "any"
                 },
-                "employee_phone": {
-                  "example": "any"
-                },
-                "employee_position": {
-                  "example": "any"
-                },
-                "employee_notes": {
-                  "example": "any"
-                },
-                "firstname": {
-                  "example": "any"
-                },
-                "lastname": {
-                  "example": "any"
-                },
-                "department": {
+                "phone": {
                   "example": "any"
                 },
                 "position": {
                   "example": "any"
                 },
-                "salary": {
+                "notes": {
                   "example": "any"
                 }
               }
@@ -169,6 +154,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized"
           },
@@ -195,22 +183,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "employee_first_name": {
+                "first_name": {
                   "example": "any"
                 },
-                "employee_last_name": {
+                "last_name": {
                   "example": "any"
                 },
-                "employee_email": {
+                "email": {
                   "example": "any"
                 },
-                "employee_phone": {
+                "phone": {
                   "example": "any"
                 },
-                "employee_position": {
+                "position": {
                   "example": "any"
                 },
-                "employee_notes": {
+                "notes": {
                   "example": "any"
                 }
               }
@@ -250,6 +238,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -459,25 +450,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "reservation_date": {
+                "date": {
                   "example": "any"
                 },
-                "reservation_time": {
+                "time": {
                   "example": "any"
                 },
-                "reservation_party": {
+                "party": {
                   "example": "any"
                 },
-                "reservation_name": {
+                "name": {
                   "example": "any"
                 },
-                "reservation_phone": {
+                "phone": {
                   "example": "any"
                 },
-                "reservation_email": {
+                "email": {
                   "example": "any"
                 },
-                "reservation_notes": {
+                "notes": {
                   "example": "any"
                 }
               }
@@ -518,6 +509,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -541,25 +535,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "reservation_date": {
+                "date": {
                   "example": "any"
                 },
-                "reservation_time": {
+                "time": {
                   "example": "any"
                 },
-                "reservation_party": {
+                "party": {
                   "example": "any"
                 },
-                "reservation_name": {
+                "name": {
                   "example": "any"
                 },
-                "reservation_phone": {
+                "phone": {
                   "example": "any"
                 },
-                "reservation_email": {
+                "email": {
                   "example": "any"
                 },
-                "reservation_notes": {
+                "notes": {
                   "example": "any"
                 }
               }
@@ -597,6 +591,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"

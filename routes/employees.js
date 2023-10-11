@@ -9,12 +9,14 @@ const validation = require('../middleware/validate');
 router.get('/', isAuthenticated, employeesController.getAll);
 router.post('/', isAuthenticated, validation.employeeRules, employeesController.createEmployee);
 router.get('/login', passport.authenticate('github'), (req, res) => {});
+//#swagger.tags=['Employees']
 router.get('/logout', function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
         res.redirect('/');
         });
 }); 
+//#swagger.tags=['Employees']
 router.get('/:lastname', isAuthenticated, employeesController.getEmployeesByLastName);
 router.get('/:employeeid', isAuthenticated, employeesController.getEmployeeById);
 router.put('/:employeeid', isAuthenticated, validation.employeeRules, employeesController.updateEmployee);
