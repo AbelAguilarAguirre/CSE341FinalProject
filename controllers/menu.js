@@ -3,8 +3,10 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAllMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    const db = mongodb.getDb();
-    db.collection('menu')
+    mongodb
+        .getDb()
+        .db()
+        .collection('menu')
         .find()
         .toArray()
         .then((menu) => {
@@ -17,7 +19,6 @@ const getAllMenu = (req, res) => {
 
 const createMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    const db = mongodb.getDb();
     const { menuName, category, cost, orderHistory } = req.body;
     const menu = {
         menu_menuName: req.body.menu_menuName,
@@ -25,7 +26,10 @@ const createMenu = (req, res) => {
         menu_cost: req.body.menu_cost,
         menu_orderHistory: req.body.menu_orderHistory
     };
-    db.collection('menu')
+    mongodb
+        .getDb()
+        .db()
+        .collection('menu')
         .insertOne(menu)
         .then((result) => {
             res.json(result.ops[0]);
@@ -37,8 +41,10 @@ const createMenu = (req, res) => {
 
 const getMenuById = (req, res) => {
     //#swagger.tags=['Menu']
-    const db = mongodb.getDb();
-    db.collection('menu')
+    mongodb
+        .getDb()
+        .db()
+        .collection('menu')
         .findOne({ _id: ObjectId(req.params.menuid) })
         .then((employee) => {
             res.json(employee);
@@ -50,14 +56,17 @@ const getMenuById = (req, res) => {
 
 const updateMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    const db = mongodb.getDb();
+    
     const menu = {
         menu_menuName: req.body.menu_menuName,
         menu_category: req.body.menu_category,
         menu_cost: req.body.menu_cost,
         menu_orderHistory: req.body.menu_orderHistory,
     };
-    db.collection('menu')
+    mongodb
+        .getDb()
+        .db()
+        .collection('menu')
         .findOneAndUpdate(
             { _id: ObjectId(req.params.menuid) },
             { $set: menu },
@@ -73,8 +82,10 @@ const updateMenu = (req, res) => {
 
 const deleteMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    const db = mongodb.getDb();
-    db.collection('menu')
+    mongodb
+        .getDb()
+        .db()
+        .collection('menu')
         .deleteOne({ _id: ObjectId(req.params.id) })
         .then((result) => {
             res.json(result);

@@ -42,8 +42,10 @@ const createEmployee = (req, res) => {
 
 const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .findOne({ _id: ObjectId(req.params.employeeid) })
         .then((employee) => {
             res.json(employee);
@@ -55,8 +57,10 @@ const getEmployeeById = (req, res) => {
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .find({ employee_last_name: req.params.lastname })
         .toArray()
         .then((employees) => {
@@ -69,7 +73,6 @@ const getEmployeesByLastName = (req, res) => {
 
 const updateEmployee = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
     const employee = {
         employee_first_name: req.body.employee_first_name,
         employee_last_name: req.body.employee_last_name,
@@ -78,7 +81,10 @@ const updateEmployee = (req, res) => {
         employee_position: req.body.employee_position,
         employee_notes: req.body.employee_notes,
     };
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .findOneAndUpdate(
             { _id: ObjectId(req.params.employeeid) },
             { $set: employee },
@@ -94,8 +100,10 @@ const updateEmployee = (req, res) => {
 
 const deleteEmployee = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .deleteOne({ _id: ObjectId(req.params.id) })
         .then((result) => {
             res.json(result);

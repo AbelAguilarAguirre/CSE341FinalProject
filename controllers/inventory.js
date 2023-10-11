@@ -3,8 +3,10 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAllItems = (req, res) => {
     //#swagger.tags=['Inventory']
-    const db = mongodb.getDb();
-    db.collection('inventory')
+    mongodb
+        .getDb()
+        .db()
+        .collection('inventory')
         .find()
         .toArray()
         .then((inventory) => {
@@ -17,7 +19,6 @@ const getAllItems = (req, res) => {
 
 const createItem = (req, res) => {
     //#swagger.tags=['Inventory']
-    const db = mongodb.getDb();
     const { itemName, description, unitCost, inStock } = req.body;
     const inventory = {
         inventory_itemName: req.body.inventory_itemName,
@@ -25,7 +26,10 @@ const createItem = (req, res) => {
         inventory_unitCost: req.body.inventory_unitCost,
         inventory_inStock: req.body.inventory_inStock
     };
-    db.collection('inventory')
+    mongodb
+        .getDb()
+        .db()
+        .collection('inventory')
         .insertOne(inventory)
         .then((result) => {
             res.json(result.ops[0]);
@@ -37,8 +41,10 @@ const createItem = (req, res) => {
 
 const getInventoryById = (req, res) => {
     //#swagger.tags=['Inventory']
-    const db = mongodb.getDb();
-    db.collection('inventory')
+    mongodb
+        .getDb()
+        .db()
+        .collection('inventory')
         .findOne({ _id: ObjectId(req.params.inventoryid) })
         .then((inventory) => {
             res.json(inventory);
@@ -50,14 +56,16 @@ const getInventoryById = (req, res) => {
 
 const updateInventory = (req, res) => {
     //#swagger.tags=['Inventory']
-    const db = mongodb.getDb();
     const inventory = {
         inventory_itemName: req.body.inventory_itemName,
         inventory_description: req.body.inventory_description,
         inventory_unitCost: req.body.inventory_unitCost,
         inventory_inStock: req.body.inventory_inStock
     };
-    db.collection('inventory')
+    mongodb
+        .getDb()
+        .db()
+        .collection('inventory')
         .findOneAndUpdate(
             { _id: ObjectId(req.params.menuid) },
             { $set: inventory },
@@ -73,8 +81,10 @@ const updateInventory = (req, res) => {
 
 const deleteInventory = (req, res) => {
     //#swagger.tags=['Inventory']
-    const db = mongodb.getDb();
-    db.collection('inventory')
+    mongodb
+        .getDb()
+        .db()
+        .collection('inventory')
         .deleteOne({ _id: ObjectId(req.params.id) })
         .then((result) => {
             res.json(result);
