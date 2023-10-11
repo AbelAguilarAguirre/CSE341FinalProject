@@ -8,13 +8,12 @@ const getAll = (req, res) => {
         .db()
         .collection('employees')
         .find()
-        .toArray((err, lists) => {
-            try {
-                res.setHeader('Content-Type', 'application/json');
-                res.status(200).json(lists);
-            } catch (err) {
-                res.status(500).json({ message: err.message });
-            }
+        .toArray()
+        .then((employees) => {
+            res.json(employees);
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
         });
 };
 
