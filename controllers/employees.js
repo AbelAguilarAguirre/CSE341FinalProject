@@ -3,16 +3,19 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .find()
-        .toArray()
-        .then((employees) => {
-            res.json(employees);
+        .toArray((err, lists) => {
+            try {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(lists);
+            } catch (err) {
+                res.status(500).json({ message: err.message });
+            }
         })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
-        });
 };
 
 const createEmployee = (req, res) => {
