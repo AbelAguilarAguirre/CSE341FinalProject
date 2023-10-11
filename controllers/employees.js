@@ -47,26 +47,26 @@ const getEmployeeById = async (req, res) => {
     }
     const employeeId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
-    result.toArray().then((employees) => {
+    result.toArray((err, result) => {
+        if (err) {
+            res.status(400).json({ message: err });
+        }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(employees[0]);
-    })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
-        });
+        res.status(200).json(result[0]);
+    });
 };
 
 const getEmployeesByLastName = async (req, res) => {
     //#swagger.tags=['Employees']
     const lastname = req.params.last_name;
     const result = await mongodb.getDb().db().collection('employees').find({ last_name: lastname });
-    result.toArray().then((employees) => {
+    result.toArray((err, result) => {
+        if (err) {
+            res.status(400).json({ message: err });
+        }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(employees[0]);
-    })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
-        });
+        res.status(200).json(result[0]);
+    });
 };
 
 const updateEmployee = (req, res) => {

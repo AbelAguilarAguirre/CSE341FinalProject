@@ -24,14 +24,14 @@ const getSingle = async (req, res) => {
     }
     const reservationId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('reservations').find({ _id: reservationId });
-    result.toArray().then((reservations) => {
+    result.toArray((err, result) => {
+        if (err) {
+          res.status(400).json({ message: err });
+        }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(reservations[0]);
-    })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
-        });
-};
+        res.status(200).json(result[0]);
+      });
+  };
 
 const createReservation = (req, res) => {
     //#swagger.tags=['Reservations']
