@@ -17,13 +17,13 @@ const getAll = (req, res) => {
         });
 };
 
-const getSingle = async (req, res) => {
+const getSingle = (req, res) => {
     //#swagger.tags=['Reservations']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid reservation id.');
     }
     const reservationId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db().collection('reservations').find({ _id: reservationId });
+    mongodb.getDb().db().collection('reservations').find({ _id: reservationId });
     result.toArray((err, result) => {
         if (err) {
           res.status(400).json({ message: err });

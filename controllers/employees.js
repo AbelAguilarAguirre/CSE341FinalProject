@@ -46,7 +46,7 @@ const getEmployeeById = async (req, res) => {
         res.status(400).json('Must use a valid employee id.');
     }
     const employeeId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
+    mongodb.getDb().db().collection('employees').find({ _id: employeeId });
     result.toArray((err, result) => {
         if (err) {
             res.status(400).json({ message: err });
@@ -56,10 +56,10 @@ const getEmployeeById = async (req, res) => {
     });
 };
 
-const getEmployeesByLastName = async (req, res) => {
+const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
     const lastname = req.params.last_name;
-    const result = await mongodb.getDb().db().collection('employees').find({ last_name: lastname });
+    mongodb.getDb().db().collection('employees').find({ last_name: lastname });
     result.toArray((err, result) => {
         if (err) {
             res.status(400).json({ message: err });
