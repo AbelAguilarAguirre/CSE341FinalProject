@@ -2,13 +2,13 @@ const validator = require('../helpers/validate');
 
 const reservationRules = (req, res, next) => {
     const validationRule = {
-        reservation_date: "required|date",
-        reservation_time: "required",
-        reservation_party: "required|integer",
-        reservation_name: "required|string",
-        reservation_phone: "required|string",
-        reservation_email: "required|email",
-        reservation_notes: "string",
+        date: "required|date",
+        time: "required",
+        party: "required|integer",
+        name: "required|string",
+        phone: "required|string",
+        email: "required|email",
+        notes: "string",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
@@ -24,12 +24,12 @@ const reservationRules = (req, res, next) => {
 
 const employeeRules = (req, res, next) => {
     const validationRule = {
-        employee_first_name: "required|string",
-        employee_last_name: "required|string",
-        employee_email: "required|email",
-        employee_phone: "required|string",
-        employee_position: "required|string",
-        employee_notes: "string",
+        first_name: "required|string",
+        last_name: "required|string",
+        email: "required|email",
+        phone: "required|string",
+        position: "required|string",
+        notes: "string",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
@@ -45,10 +45,10 @@ const employeeRules = (req, res, next) => {
 
 const menuRules = (req, res, next) => {
     const validationRule = {
-        menu_menuName: "required|string",
-        menu_category: "string",
-        menu_cost: "required|number",
-        menu_orderHistory: "required|number",
+        menuName: "required|string",
+        category: "string",
+        cost: "required|number",
+        orderHistory: "required|number",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
@@ -64,10 +64,10 @@ const menuRules = (req, res, next) => {
 
 const inventoryRules = (req, res, next) => {
     const validationRule = {
-        inventory_itemName: "required|string",
-        inventory_description: "string",
-        inventory_unitCost: "required|number",
-        inventory_inStock: "required|number",
+        itemName: "required|string",
+        description: "string",
+        unitCost: "required|number",
+        inStock: "required|number",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {

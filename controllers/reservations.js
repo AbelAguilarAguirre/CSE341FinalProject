@@ -19,11 +19,15 @@ const getAll = (req, res) => {
 
 const getSingle = (req, res) => {
     //#swagger.tags=['Reservations']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid reservation id.');
+      }
+    const reservationId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('reservations')
-        .findOne({ _id: ObjectId(req.params.id) })
+        .findOne({ _id: reservationId })
         .then((reservation) => {
             res.json(reservation);
         })
@@ -58,20 +62,24 @@ const createReservation = (req, res) => {
 
 const updateReservation = (req, res) => {
     //#swagger.tags=['Reservations']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid reservation id.');
+        }
+    const reservationId = new ObjectId(req.params.id);
     const reservation = {
-        reservation_date: req.body.reservation_date,
-        reservation_time: req.body.reservation_time,
-        reservation_party: req.body.reservation_party,
-        reservation_name: req.body.reservation_name,
-        reservation_phone: req.body.reservation_phone,
-        reservation_email: req.body.reservation_email,
-        reservation_notes: req.body.reservation_notes,
+        date: req.body.date,
+        time: req.body.time,
+        party: req.body.party,
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        notes: req.body.notes,
     };
     mongodb
         .getDb()
         .db()
         .collection('reservations')
-        .findOneAndUpdate({ _id: ObjectId(req.params.id) }, { $set: reservation }, { returnOriginal: false })
+        .replaceOne({ _id: reservationId }, reservation)
         .then((result) => {
             res.json(result.value);
         })
@@ -82,11 +90,15 @@ const updateReservation = (req, res) => {
 
 const deleteReservation = (req, res) => {
     //#swagger.tags=['Reservations']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid reservation id.');
+        }
+    const reservationId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('reservations')
-        .deleteOne({ _id: ObjectId(req.params.id) })
+        .remove({ _id: reservationId }, true)
         .then((result) => {
             res.json(result);
         })

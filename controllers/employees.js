@@ -19,20 +19,21 @@ const getAll = (req, res) => {
 
 const createEmployee = (req, res) => {
     //#swagger.tags=['Employees']
-    const db = mongodb.getDb();
-    const { firstname, lastname, department, position, salary } = req.body;
     const employee = {
-        employee_first_name: req.body.employee_first_name,
-        employee_last_name: req.body.employee_last_name,
-        employee_email: req.body.employee_email,
-        employee_phone: req.body.employee_phone,
-        employee_position: req.body.employee_position,
-        employee_notes: req.body.employee_notes,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        position: req.body.position,
+        notes: req.body.notes,
     };
-    db.collection('employees')
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
         .insertOne(employee)
         .then((result) => {
-            res.json(result.ops[0]);
+            res.json(result);
         })
         .catch((err) => {
             res.status(500).json({ message: err.message });
@@ -41,11 +42,15 @@ const createEmployee = (req, res) => {
 
 const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid employee id.');
+      }
+    const employeeId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('employees')
-        .findOne({ _id: ObjectId(req.params.employeeid) })
+        .findOne({ _id: employeeId })
         .then((employee) => {
             res.json(employee);
         })
@@ -56,11 +61,12 @@ const getEmployeeById = (req, res) => {
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
+    const last_name = req.params.last_name;
     mongodb
         .getDb()
         .db()
         .collection('employees')
-        .find({ employee_last_name: req.params.lastname })
+        .find({ last_name })
         .toArray()
         .then((employees) => {
             res.json(employees);
@@ -72,22 +78,24 @@ const getEmployeesByLastName = (req, res) => {
 
 const updateEmployee = (req, res) => {
     //#swagger.tags=['Employees']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid employee id.');
+        }
+    const employeeId = new ObjectId(req.params.id);
     const employee = {
-        employee_first_name: req.body.employee_first_name,
-        employee_last_name: req.body.employee_last_name,
-        employee_email: req.body.employee_email,
-        employee_phone: req.body.employee_phone,
-        employee_position: req.body.employee_position,
-        employee_notes: req.body.employee_notes,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        position: req.body.position,
+        notes: req.body.notes,
     };
     mongodb
         .getDb()
         .db()
         .collection('employees')
-        .findOneAndUpdate(
-            { _id: ObjectId(req.params.employeeid) },
-            { $set: employee },
-            { returnOriginal: false }
+        .replaceOne(
+            { _id: employeeId }, employee
         )
         .then((result) => {
             res.json(result.value);
@@ -99,11 +107,15 @@ const updateEmployee = (req, res) => {
 
 const deleteEmployee = (req, res) => {
     //#swagger.tags=['Employees']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid employee id.');
+        }
+    const employeeId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('employees')
-        .deleteOne({ _id: ObjectId(req.params.id) })
+        .deleteOne({ _id: employeeId })
         .then((result) => {
             res.json(result);
         })
