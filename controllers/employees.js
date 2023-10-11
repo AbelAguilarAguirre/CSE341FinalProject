@@ -15,7 +15,7 @@ const getAll = (req, res) => {
             } catch (err) {
                 res.status(500).json({ message: err.message });
             }
-        })
+        });
 };
 
 const createEmployee = (req, res) => {
