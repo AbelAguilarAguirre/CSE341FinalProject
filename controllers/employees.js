@@ -40,40 +40,32 @@ const createEmployee = (req, res) => {
         });
 };
 
-const getEmployeeById = (req, res) => {
+const getEmployeeById = async (req, res) => {
     //#swagger.tags=['Employees']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid employee id.');
     }
     const employeeId = new ObjectId(req.params.id);
-    mongodb
-        .getDb()
-        .db()
-        .collection('employees')
-        .find({ _id: employeeId })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
+    const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
+    result.toArray().then((employees) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(employees);
+    })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
         });
 };
 
-const getEmployeesByLastName = (req, res) => {
+const getEmployeesByLastName = async (req, res) => {
     //#swagger.tags=['Employees']
     const lastname = req.params.last_name;
-    mongodb
-        .getDb()
-        .db()
-        .collection('employees')
-        .find({ last_name: lastname })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
+    const result = await mongodb.getDb().db().collection('employees').find({ last_name: lastname });
+    result.toArray().then((employees) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(employees);
+    })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
         });
 };
 
