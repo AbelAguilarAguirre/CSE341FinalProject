@@ -34,15 +34,14 @@ const getSingle = (req, res) => {
 
 const createReservation = (req, res) => {
     //#swagger.tags=['Reservations']
-    const { reservation_date, reservation_time, reservation_party, reservation_name, reservation_phone, reservation_email, reservation_notes } = req.body;
     const reservation = {
-        reservation_date: req.body.reservation_date,
-        reservation_time: req.body.reservation_time,
-        reservation_party: req.body.reservation_party,
-        reservation_name: req.body.reservation_name,
-        reservation_phone: req.body.reservation_phone,
-        reservation_email: req.body.reservation_email,
-        reservation_notes: req.body.reservation_notes,
+        date: req.body.date,
+        time: req.body.time,
+        party: req.body.party,
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        notes: req.body.notes,
     };
     mongodb
         .getDb()
@@ -50,7 +49,7 @@ const createReservation = (req, res) => {
         .collection('reservations')
         .insertOne(reservation)
         .then((result) => {
-            res.json(result.ops[0]);
+            res.json(result);
         })
         .catch((err) => {
             res.status(500).json({ message: err.message });
