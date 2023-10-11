@@ -27,7 +27,7 @@ const getSingle = (req, res) => {
         .getDb()
         .db()
         .collection('reservations')
-        .findOne({ _id: reservationId })
+        .find({ _id: reservationId })
         .then((reservation) => {
             res.json(reservation);
         })

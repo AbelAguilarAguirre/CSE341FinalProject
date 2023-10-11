@@ -50,7 +50,7 @@ const getEmployeeById = (req, res) => {
         .getDb()
         .db()
         .collection('employees')
-        .findOne({ _id: employeeId })
+        .find({ _id: employeeId })
         .then((employee) => {
             res.json(employee);
         })
@@ -61,12 +61,12 @@ const getEmployeeById = (req, res) => {
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
-    const last_name = req.params.last_name;
+    const lastname = req.params.last_name;
     mongodb
         .getDb()
         .db()
         .collection('employees')
-        .find({ last_name })
+        .find({ last_name: lastname })
         .toArray()
         .then((employees) => {
             res.json(employees);
