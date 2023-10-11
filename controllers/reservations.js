@@ -21,18 +21,19 @@ const getSingle = (req, res) => {
     //#swagger.tags=['Reservations']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid reservation id.');
-      }
+    }
     const reservationId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('reservations')
         .find({ _id: reservationId })
-        .then((reservation) => {
-            res.json(reservation);
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(result[0]);
         });
 };
 
@@ -64,7 +65,7 @@ const updateReservation = (req, res) => {
     //#swagger.tags=['Reservations']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid reservation id.');
-        }
+    }
     const reservationId = new ObjectId(req.params.id);
     const reservation = {
         date: req.body.date,
@@ -92,7 +93,7 @@ const deleteReservation = (req, res) => {
     //#swagger.tags=['Reservations']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid reservation id.');
-        }
+    }
     const reservationId = new ObjectId(req.params.id);
     mongodb
         .getDb()

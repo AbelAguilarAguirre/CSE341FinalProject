@@ -44,18 +44,19 @@ const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid employee id.');
-      }
+    }
     const employeeId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('employees')
         .find({ _id: employeeId })
-        .then((employee) => {
-            res.json(employee);
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(result[0]);
         });
 };
 
@@ -67,12 +68,12 @@ const getEmployeesByLastName = (req, res) => {
         .db()
         .collection('employees')
         .find({ last_name: lastname })
-        .toArray()
-        .then((employees) => {
-            res.json(employees);
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(result[0]);
         });
 };
 
@@ -80,7 +81,7 @@ const updateEmployee = (req, res) => {
     //#swagger.tags=['Employees']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid employee id.');
-        }
+    }
     const employeeId = new ObjectId(req.params.id);
     const employee = {
         first_name: req.body.first_name,
@@ -109,7 +110,7 @@ const deleteEmployee = (req, res) => {
     //#swagger.tags=['Employees']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use a valid employee id.');
-        }
+    }
     const employeeId = new ObjectId(req.params.id);
     mongodb
         .getDb()
