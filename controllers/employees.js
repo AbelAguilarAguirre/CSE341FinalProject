@@ -52,7 +52,7 @@ const getEmployeeById = (req, res) => {
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
-    const lastname = req.params.last_name;
+    const lastname = req.params.lastname;
     mongodb.getDb().db().collection('employees').find({ last_name: lastname }).toArray().then((employees) => {
         res.json(employees);
     }).catch((err) => {
