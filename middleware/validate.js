@@ -47,8 +47,8 @@ const menuRules = (req, res, next) => {
     const validationRule = {
         menuName: "required|string",
         category: "string",
-        cost: "required|number",
-        orderHistory: "required|number",
+        cost: "required|integer",
+        orderHistory: "required|integer",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
@@ -66,8 +66,8 @@ const inventoryRules = (req, res, next) => {
     const validationRule = {
         itemName: "required|string",
         description: "string",
-        unitCost: "required|number",
-        inStock: "required|number",
+        unitCost: "required|integer",
+        inStock: "required|integer",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
