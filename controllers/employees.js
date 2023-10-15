@@ -75,13 +75,12 @@ const getEmployeesByLastName = (req, res) => {
         });
 };
 
-const updateEmployee = async (req, res) => {
+const updateEmployee = (req, res) => {
     //#swagger.tags=['Employees']
     if (!ObjectId.isValid(req.params.id)) {
-        res.status(400).json('Must use a valid Employee id to update an Employee.');
+        res.status(400).json('Must use a valid employee id.');
     }
     const employeeId = new ObjectId(req.params.id);
-    // be aware of updateOne if you only want to update specific fields
     const employee = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -90,16 +89,17 @@ const updateEmployee = async (req, res) => {
         position: req.body.position,
         notes: req.body.notes,
     };
-    const response = await mongodb
+    mongodb
         .getDb()
         .db()
         .collection('employees')
-        .replaceOne({ _id: employeeId }, employee);
-    if (response.modifiedCount > 0) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(response.error || 'Some error occurred while updating the employee.');
-    }
+        .replaceOne({ _id: employeeId }, employee)
+        .then((result) => {
+            res.json(result).send();
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
+        });
 };
 
 const deleteEmployee = (req, res) => {
