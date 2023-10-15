@@ -42,7 +42,7 @@ const createEmployee = (req, res) => {
 
 const getEmployeeById = async (req, res) => {
     //#swagger.tags=['Employees']
-    const employeeId = new ObjectId(req.params.id);
+    const employeeId = new ObjectId(req.params.employeeid);
     const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
     result.toArray().then((employees) => {
         res.setHeader('Content-Type', 'application/json');
