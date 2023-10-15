@@ -42,22 +42,22 @@ const createEmployee = (req, res) => {
 
 const getEmployeeById = async (req, res) => {
     //#swagger.tags=['Employees']
-    if (!ObjectId.isValid(req.params.id)) {
+    try {
+        const employeeId = new ObjectId(req.params.id);
+        mongodb.getDb()
+            .db()
+            .collection('employees')
+            .find({ _id: employeeId })
+    if ((await mongodb.countDocuments({ _id: employeeId })) ===0) {
         res.status(400).json('Must use a valid employee id.');
-    }
-    const employeeId = new ObjectId(req.params.id);
-    mongodb.getDb()
-        .db()
-        .collection('employees')
-        .find({ _id: employeeId })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
-        });
-};
+    };
+    for await (const doc of cursor) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(doc);
+    } 
+} catch (err) {
+    res.status(500).json({ message: err.message });
+}};
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
