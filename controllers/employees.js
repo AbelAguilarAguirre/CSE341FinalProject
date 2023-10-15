@@ -44,7 +44,7 @@ const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
     const employeeId = new ObjectId(req.params.id);
     mongodb.getDb().db().collection('employees').find({ _id: employeeId }).toArray().then((employees) => {
-        res.json(employees[0]);
+        res.json(employees);
     }).catch((err) => {
         res.status(500).json({ message: err.message });
     });
@@ -52,7 +52,7 @@ const getEmployeeById = (req, res) => {
 
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
-    const lastname = new ObjectId(req.params.last_name);
+    const lastname = req.params.last_name;
     mongodb.getDb().db().collection('employees').find({ last_name: lastname }).toArray().then((employees) => {
         res.json(employees);
     }).catch((err) => {
