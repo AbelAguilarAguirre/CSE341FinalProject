@@ -109,29 +109,34 @@
         }
       }
     },
-    "/employees/lastname": {
+    "/employees/findByLastname/{lastname}": {
       "get": {
         "tags": [
           "Employees"
         ],
         "description": "",
-        "produces": [
-          "application/json"
+        "parameters": [
+          {
+            "name": "lastname",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "401": {
             "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/employees/{id}": {
+    "/employees/findById/{id}": {
       "get": {
         "tags": [
           "Employees"
@@ -156,7 +161,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/employees/{id}": {
       "put": {
         "tags": [
           "Employees"

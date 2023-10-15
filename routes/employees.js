@@ -17,8 +17,8 @@ router.get('/logout', function(req, res, next) {
         });
 }); 
 //#swagger.tags=['Employees']
-router.get('/:lastname', isAuthenticated, employeesController.getEmployeesByLastName);
-router.get('/:id', isAuthenticated, employeesController.getEmployeeById);
+router.get('/findByLastname/:lastname', isAuthenticated, employeesController.getEmployeesByLastName);
+router.get('/findById/:id', isAuthenticated, employeesController.getEmployeeById);
 router.put('/:id', isAuthenticated, validation.employeeRules, employeesController.updateEmployee);
 router.delete('/:id', isAuthenticated, employeesController.deleteEmployee);
 module.exports = router;
