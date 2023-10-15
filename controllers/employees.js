@@ -42,7 +42,7 @@ const createEmployee = (req, res) => {
 
 const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
-    const employeeId = new ObjectId(req.params.employeeid);
+    const employeeId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         console.log("Test 1")
