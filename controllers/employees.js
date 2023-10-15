@@ -43,12 +43,9 @@ const createEmployee = (req, res) => {
 const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
     const employeeId = new ObjectId(req.params.id);
-    console.log("Test 1");
     mongodb.getDb().db().collection('employees').find({ _id: employeeId }).toArray().then((employees) => {
-        console.log("Test 6")
         res.json(employees[0]);
     }).catch((err) => {
-        console.log("Test 7")
         res.status(500).json({ message: err.message });
     });
 };
@@ -56,17 +53,11 @@ const getEmployeeById = (req, res) => {
 const getEmployeesByLastName = (req, res) => {
     //#swagger.tags=['Employees']
     const lastname = req.params.last_name;
-    mongodb.getDb()
-        .db()
-        .collection('employees')
-        .find({ last_name: lastname })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
-        });
+    mongodb.getDb().db().collection('employees').find({ last_name: lastname }).toArray().then((employees) => {
+        res.json(employees);
+    }).catch((err) => {
+        res.status(500).json({ message: err.message });
+    });
 };
 
 const updateEmployee = (req, res) => {
