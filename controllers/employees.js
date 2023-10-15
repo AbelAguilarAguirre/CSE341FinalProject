@@ -51,7 +51,7 @@ const getEmployeeById = async (req, res) => {
     if ((await mongodb.countDocuments({ _id: employeeId })) ===0) {
         res.status(400).json('Must use a valid employee id.');
     };
-    for await (const doc of cursor) {
+    for await (const doc of mongodb.find({ _id: employeeId })) {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(doc);
     } 
