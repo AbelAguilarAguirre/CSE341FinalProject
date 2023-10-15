@@ -89,7 +89,7 @@ const deleteReservation = (req, res) => {
         .getDb()
         .db()
         .collection('reservations')
-        .remove({ _id: reservationId }, true)
+        .deleteOne({ _id: reservationId })
         .then((result) => {
             res.json(result);
         })
