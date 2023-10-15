@@ -47,8 +47,7 @@ const getEmployeeById = (req, res) => {
     mongodb.getDb().db().collection('employees').find({ _id: employeeId }).toArray().then((employees) => {
         console.log("Test 6")
         res.json(employees[0]);
-    });
-    mongodb.catch((err) => {
+    }).catch((err) => {
         console.log("Test 7")
         res.status(500).json({ message: err.message });
     });
