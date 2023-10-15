@@ -45,14 +45,21 @@ const getEmployeeById = (req, res) => {
     const employeeId = new ObjectId(req.params.employeeid);
     mongodb
         .getDb()
+        console.log("Test 1")
         .db()
+        console.log("Test 2")
         .collection('employees')
+        console.log("Test 3")
         .find({ _id: employeeId })
+        console.log("Test 4")
         .toArray()
+        console.log("Test 5")
         .then((employees) => {
+            console.log("Test 6")
             res.json(employees[0]);
         })
         .catch((err) => {
+            console.log("Test 7")
             res.status(500).json({ message: err.message });
         });
 };

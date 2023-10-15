@@ -23,7 +23,8 @@ const getSingle = (req, res) => {
         res.status(400).json('Must use a valid reservation id.');
     }
     const reservationId = new ObjectId(req.params.id);
-    mongodb.getDb()
+    mongodb
+        .getDb()
         .db()
         .collection('reservations')
         .find({ _id: reservationId })
