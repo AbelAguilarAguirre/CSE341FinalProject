@@ -43,24 +43,23 @@ const createEmployee = (req, res) => {
 const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
     const employeeId = new ObjectId(req.params.id);
-        mongodb.getDb();
-        console.log("Test 1");
-        mongodb.db();
-        console.log("Test 2");
-        mongodb.collection('employees');
-        console.log("Test 3");
-        mongodb.find({ _id: employeeId });
-        console.log("Test 4");
-        mongodb.toArray();
-        console.log("Test 5");
-        mongodb.then((employees) => {
-            console.log("Test 6")
-            res.json(employees[0]);
-        });
-        mongodb.catch((err) => {
-            console.log("Test 7")
-            res.status(500).json({ message: err.message });
-        });
+    console.log("Test 1");
+    mongodb.getDb().db();
+    console.log("Test 2");
+    mongodb.collection('employees');
+    console.log("Test 3");
+    mongodb.find({ _id: employeeId });
+    console.log("Test 4");
+    mongodb.toArray();
+    console.log("Test 5");
+    mongodb.then((employees) => {
+        console.log("Test 6")
+        res.json(employees[0]);
+    });
+    mongodb.catch((err) => {
+        console.log("Test 7")
+        res.status(500).json({ message: err.message });
+    });
 };
 
 const getEmployeesByLastName = (req, res) => {
