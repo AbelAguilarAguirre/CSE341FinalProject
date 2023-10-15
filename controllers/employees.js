@@ -40,14 +40,21 @@ const createEmployee = (req, res) => {
         });
 };
 
-const getEmployeeById = async (req, res) => {
+const getEmployeeById = (req, res) => {
     //#swagger.tags=['Employees']
     const employeeId = new ObjectId(req.params.employeeid);
-    const result = await mongodb.getDb().db().collection('employees').find({ _id: employeeId });
-    result.toArray().then((employees) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(employees[0]);
-    });
+    mongodb
+        .getDb()
+        .db()
+        .collection('employees')
+        .find({ _id: employeeId })
+        .toArray()
+        .then((employees) => {
+            res.json(employees[0]);
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
+        });
 };
 
 const getEmployeesByLastName = (req, res) => {
