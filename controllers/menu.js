@@ -64,10 +64,10 @@ const updateMenu = (req, res) => {
     }
     const menuId = new ObjectId(req.params.id);
     const menu = {
-        menu_menuName: req.body.menu_menuName,
-        menu_category: req.body.menu_category,
-        menu_cost: req.body.menu_cost,
-        menu_orderHistory: req.body.menu_orderHistory,
+        menuName: req.body.menuName,
+        category: req.body.category,
+        cost: req.body.cost,
+        orderHistory: req.body.orderHistory,
     };
     mongodb
         .getDb()
