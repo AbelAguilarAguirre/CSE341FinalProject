@@ -19,12 +19,11 @@ const getAllMenu = (req, res) => {
 
 const createMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    const { menuName, category, cost, orderHistory } = req.body;
     const menu = {
-        menu_menuName: req.body.menu_menuName,
-        menu_category: req.body.menu_category,
-        menu_cost: req.body.menu_cost,
-        menu_orderHistory: req.body.menu_orderHistory
+        menuName: req.body.menuName,
+        category: req.body.category,
+        cost: req.body.cost,
+        orderHistory: req.body.orderHistory
     };
     mongodb
         .getDb()
@@ -32,31 +31,38 @@ const createMenu = (req, res) => {
         .collection('menu')
         .insertOne(menu)
         .then((result) => {
-            res.json(result.ops[0]);
+            res.json(result);
         })
         .catch((err) => {
             res.status(500).json({ message: err.message });
         });
 };
 
-const getMenuById = (req, res) => {
+const getMenuById = async (req, res) => {
     //#swagger.tags=['Menu']
-    mongodb
-        .getDb()
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid menu id.')
+    }
+    const menuId = new ObjectId(req.params.id);
+    mongodb.getDb()
         .db()
         .collection('menu')
-        .findOne({ _id: ObjectId(req.params.menuid) })
-        .then((employee) => {
-            res.json(employee);
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
+        .find({ _id: menuId })
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).json({ message: err});
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(result[0]);
         });
 };
 
 const updateMenu = (req, res) => {
     //#swagger.tags=['Menu']
-    
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid menu id.');
+    }
+    const menuId = new ObjectId(req.params.id);
     const menu = {
         menu_menuName: req.body.menu_menuName,
         menu_category: req.body.menu_category,
@@ -67,10 +73,8 @@ const updateMenu = (req, res) => {
         .getDb()
         .db()
         .collection('menu')
-        .findOneAndUpdate(
-            { _id: ObjectId(req.params.menuid) },
-            { $set: menu },
-            { returnOriginal: false }
+        .replaceOne(
+            { _id: menuId }, menu
         )
         .then((result) => {
             res.json(result.value);
@@ -82,11 +86,15 @@ const updateMenu = (req, res) => {
 
 const deleteMenu = (req, res) => {
     //#swagger.tags=['Menu']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid menu id.');
+    }
+    const menuId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('menu')
-        .deleteOne({ _id: ObjectId(req.params.id) })
+        .deleteOne({ _id: menuId })
         .then((result) => {
             res.json(result);
         })
