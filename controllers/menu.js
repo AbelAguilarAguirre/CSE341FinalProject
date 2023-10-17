@@ -48,12 +48,11 @@ const getMenuById = async (req, res) => {
         .db()
         .collection('menu')
         .find({ _id: menuId })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err});
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
+        .toArray()
+        .then((menu) => {
+            res.json(menu);
+        }).catch((err) => {
+            res.status(500).json({ message: err.message });
         });
 };
 
@@ -77,7 +76,7 @@ const updateMenu = (req, res) => {
             { _id: menuId }, menu
         )
         .then((result) => {
-            res.json(result.value);
+            res.json(result).send();
         })
         .catch((err) => {
             res.status(500).json({ message: err.message });
@@ -94,7 +93,7 @@ const deleteMenu = (req, res) => {
         .getDb()
         .db()
         .collection('menu')
-        .deleteOne({ _id: menuId })
+        .deketeOne({ _id: menuId })
         .then((result) => {
             res.json(result);
         })
