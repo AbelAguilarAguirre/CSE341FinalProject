@@ -19,12 +19,11 @@ const getAllItems = (req, res) => {
 
 const createItem = (req, res) => {
     //#swagger.tags=['Inventory']
-    const { itemName, description, unitCost, inStock } = req.body;
     const inventory = {
-        inventory_itemName: req.body.inventory_itemName,
-        inventory_description: req.body.inventory_description,
-        inventory_unitCost: req.body.inventory_unitCost,
-        inventory_inStock: req.body.inventory_inStock
+        item_name: req.body.item_name,
+        description: req.body.description,
+        unit_cost: req.body.unit_cost,
+        in_stock: req.body.in_stock
     };
     mongodb
         .getDb()
@@ -39,23 +38,32 @@ const createItem = (req, res) => {
         });
 };
 
-const getInventoryById = (req, res) => {
+const getInventoryById = async (req, res) => {
     //#swagger.tags=['Inventory']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid employee id.');
+    }
+    const inventoryId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('inventory')
-        .findOne({ _id: ObjectId(req.params.inventoryid) })
-        .then((inventory) => {
-            res.json(inventory);
-        })
-        .catch((err) => {
-            res.status(500).json({ message: err.message });
+        .find({ _id: inventoryId })
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).json({ message: err });
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(result[0]);
         });
 };
 
 const updateInventory = (req, res) => {
     //#swagger.tags=['Inventory']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid inventory id.')
+    }
+    const inventoryId = new ObjectId(req.params.id);
     const inventory = {
         inventory_itemName: req.body.inventory_itemName,
         inventory_description: req.body.inventory_description,
@@ -66,10 +74,8 @@ const updateInventory = (req, res) => {
         .getDb()
         .db()
         .collection('inventory')
-        .findOneAndUpdate(
-            { _id: ObjectId(req.params.menuid) },
-            { $set: inventory },
-            { returnOriginal: false }
+        .replaceOne(
+            { _id: inventoryId }, inventory
         )
         .then((result) => {
             res.json(result.value);
@@ -81,11 +87,15 @@ const updateInventory = (req, res) => {
 
 const deleteInventory = (req, res) => {
     //#swagger.tags=['Inventory']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid inventory id.')
+    }
+    const inventoryId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('inventory')
-        .deleteOne({ _id: ObjectId(req.params.id) })
+        .deleteOne({ _id: inventoryId })
         .then((result) => {
             res.json(result);
         })
