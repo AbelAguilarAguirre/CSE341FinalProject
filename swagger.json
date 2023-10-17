@@ -5,7 +5,7 @@
     "description": "Final Project for CSE341",
     "version": "1.0.0"
   },
-  "host": "final-project-restaurant-api.onrender.com",
+  "host": "restaurant-api-xj1h.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
