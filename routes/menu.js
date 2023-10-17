@@ -7,10 +7,10 @@ const validation = require('../middleware/validate');
 
 
 router.get('/', menuController.getAllMenu);
-router.post('/', validation.menuRules, menuController.createMenu);
+router.post('/', isAuthenticated, validation.menuRules, menuController.createMenu);
 router.get('/:id', menuController.getMenuById);
-router.put('/:id', validation.menuRules, menuController.updateMenu);
-router.delete('/:id', menuController.deleteMenu);
+router.put('/:id', isAuthenticated, validation.menuRules, menuController.updateMenu);
+router.delete('/:id', isAuthenticated, menuController.deleteMenu);
 
 
 module.exports = router;
