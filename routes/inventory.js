@@ -9,6 +9,6 @@ router.get('/', inventoryController.getAllItems);
 router.post('/', isAuthenticated, validation.inventoryRules, inventoryController.createItem);
 router.get('/:id', inventoryController.getInventoryById);
 router.put('/:id', isAuthenticated, validation.inventoryRules, inventoryController.updateInventory);
-router.delete('/:id', isAuthenticated, validation.inventoryRules, inventoryController.deleteInventory);
+router.delete('/:id', isAuthenticated, inventoryController.deleteInventory);
 
 module.exports = router;

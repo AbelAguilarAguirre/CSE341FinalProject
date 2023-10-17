@@ -5,7 +5,7 @@
     "description": "Final Project for CSE341",
     "version": "1.0.0"
   },
-  "host": "restaurant-api-xj1h.onrender.com",
+  "host": "final-project-restaurant-api.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
@@ -298,9 +298,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -374,9 +371,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -401,9 +395,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -639,9 +630,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -654,9 +642,6 @@
           "Inventory"
         ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -671,6 +656,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -692,16 +680,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemName": {
+                "item_name": {
                   "example": "any"
                 },
                 "description": {
                   "example": "any"
                 },
-                "unitCost": {
+                "unit_cost": {
                   "example": "any"
                 },
-                "inStock": {
+                "in_stock": {
                   "example": "any"
                 }
               }
@@ -714,9 +702,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -742,9 +727,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"

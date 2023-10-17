@@ -5,7 +5,7 @@ const doc = {
     title: 'Restaurant API',
     description: 'Final Project for CSE341'
   },
-  host: 'restaurant-api-xj1h.onrender.com',
+  host: 'final-project-restaurant-api.onrender.com',
   schemes: ['https']
 };
 

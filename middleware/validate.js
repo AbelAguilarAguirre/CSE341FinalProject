@@ -64,10 +64,10 @@ const menuRules = (req, res, next) => {
 
 const inventoryRules = (req, res, next) => {
     const validationRule = {
-        itemName: "required|string",
+        item_name: "required|string",
         description: "string",
-        unitCost: "required|integer",
-        inStock: "required|integer",
+        unit_cost: "required|integer",
+        in_stock: "required|integer",
     };
     validator(req.body, validationRule, {}, (err, status) => {
         if (!status) {
