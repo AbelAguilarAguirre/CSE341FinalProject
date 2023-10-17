@@ -65,10 +65,10 @@ const updateInventory = (req, res) => {
     }
     const inventoryId = new ObjectId(req.params.id);
     const inventory = {
-        inventory_itemName: req.body.inventory_itemName,
-        inventory_description: req.body.inventory_description,
-        inventory_unitCost: req.body.inventory_unitCost,
-        inventory_inStock: req.body.inventory_inStock
+        itemName: req.body.itemName,
+        description: req.body.description,
+        unitCost: req.body.unitCost,
+        inStock: req.body.inStock
     };
     mongodb
         .getDb()
