@@ -82,11 +82,15 @@ const updateMenu = (req, res) => {
 
 const deleteMenu = (req, res) => {
     //#swagger.tags=['Menu']
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must be a valid id.');
+    }
+    const menuId = new ObjectId(req.params.id);
     mongodb
         .getDb()
         .db()
         .collection('menu')
-        .deleteOne({ _id: ObjectId(req.params.id) })
+        .deleteOne({ _id: menuId })
         .then((result) => {
             res.json(result);
         })
