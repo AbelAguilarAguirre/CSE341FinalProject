@@ -31,7 +31,7 @@ const createItem = (req, res) => {
         .collection('inventory')
         .insertOne(inventory)
         .then((result) => {
-            res.json(result.ops[0]);
+            res.json(result);
         })
         .catch((err) => {
             res.status(500).json({ message: err.message });
@@ -41,7 +41,7 @@ const createItem = (req, res) => {
 const getInventoryById = async (req, res) => {
     //#swagger.tags=['Inventory']
     if (!ObjectId.isValid(req.params.id)) {
-        res.status(400).json('Must use a valid employee id.');
+        res.status(400).json('Must use a valid id.');
     }
     const inventoryId = new ObjectId(req.params.id);
     mongodb
@@ -49,12 +49,11 @@ const getInventoryById = async (req, res) => {
         .db()
         .collection('inventory')
         .find({ _id: inventoryId })
-        .toArray((err, result) => {
-            if (err) {
-                res.status(400).json({ message: err });
-            }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(result[0]);
+        .toArray()
+        .then((inventory) => {
+            res.json(inventory);
+        }).catch((err) => {
+            res.status(500).json({ message: err.message });
         });
 };
 
@@ -65,10 +64,10 @@ const updateInventory = (req, res) => {
     }
     const inventoryId = new ObjectId(req.params.id);
     const inventory = {
-        itemName: req.body.itemName,
+        item_name: req.body.item_name,
         description: req.body.description,
-        unitCost: req.body.unitCost,
-        inStock: req.body.inStock
+        unit_cost: req.body.unit_cost,
+        in_stock: req.body.in_stock
     };
     mongodb
         .getDb()

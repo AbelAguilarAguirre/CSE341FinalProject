@@ -275,18 +275,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "menu_menuName": {
-                  "example": "any"
-                },
-                "menu_category": {
-                  "example": "any"
-                },
-                "menu_cost": {
-                  "example": "any"
-                },
-                "menu_orderHistory": {
-                  "example": "any"
-                },
                 "menuName": {
                   "example": "any"
                 },
@@ -337,6 +325,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -360,16 +351,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "menu_menuName": {
+                "menuName": {
                   "example": "any"
                 },
-                "menu_category": {
+                "category": {
                   "example": "any"
                 },
-                "menu_cost": {
+                "cost": {
                   "example": "any"
                 },
-                "menu_orderHistory": {
+                "orderHistory": {
                   "example": "any"
                 }
               }
@@ -494,9 +485,6 @@
           "Reservations"
         ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -509,8 +497,8 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -628,28 +616,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "inventory_itemName": {
-                  "example": "any"
-                },
-                "inventory_description": {
-                  "example": "any"
-                },
-                "inventory_unitCost": {
-                  "example": "any"
-                },
-                "inventory_inStock": {
-                  "example": "any"
-                },
-                "itemName": {
+                "item_name": {
                   "example": "any"
                 },
                 "description": {
                   "example": "any"
                 },
-                "unitCost": {
+                "unit_cost": {
                   "example": "any"
                 },
-                "inStock": {
+                "in_stock": {
                   "example": "any"
                 }
               }
@@ -690,6 +666,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -713,16 +692,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "inventory_itemName": {
+                "item_name": {
                   "example": "any"
                 },
-                "inventory_description": {
+                "description": {
                   "example": "any"
                 },
-                "inventory_unitCost": {
+                "unit_cost": {
                   "example": "any"
                 },
-                "inventory_inStock": {
+                "in_stock": {
                   "example": "any"
                 }
               }

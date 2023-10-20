@@ -93,7 +93,7 @@ const deleteMenu = (req, res) => {
         .getDb()
         .db()
         .collection('menu')
-        .deketeOne({ _id: menuId })
+        .deleteOne({ _id: menuId })
         .then((result) => {
             res.json(result);
         })

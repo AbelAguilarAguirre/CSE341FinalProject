@@ -10,7 +10,7 @@ router.get('/', menuController.getAllMenu);
 router.post('/', isAuthenticated, validation.menuRules, menuController.createMenu);
 router.get('/:id', menuController.getMenuById);
 router.put('/:id', isAuthenticated, validation.menuRules, menuController.updateMenu);
-router.delete('/:id', isAuthenticated, validation.menuRules, menuController.deleteMenu);
+router.delete('/:id', isAuthenticated, menuController.deleteMenu);
 
 
 module.exports = router;
