@@ -6,7 +6,7 @@ const { isAuthenticated } = require('../middleware/authenticate');
 const validation = require('../middleware/validate');
 
 
-router.get('/', isAuthenticated, employeesController.getAll);
+router.get('/', employeesController.getAll);
 router.post('/', isAuthenticated, validation.employeeRules, employeesController.createEmployee);
 router.get('/login', passport.authenticate('github'), (req, res) => {});
 //#swagger.tags=['Employees']
