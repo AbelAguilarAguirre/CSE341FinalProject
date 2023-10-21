@@ -4,6 +4,8 @@ env.config();
 const request = require('supertest');
 const baseURL = 'https://final-project-restaurant-api.onrender.com';
 
+jest.setTimeout(60000);
+
 describe('insert', () => {
     let connection;
     let db;
