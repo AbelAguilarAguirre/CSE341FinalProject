@@ -38,7 +38,7 @@ describe('Handlers', () => {
     });
 
 
-    test('get all', async () => {
+    test('gets all', async () => {
         const menu = db.collection('menu');
         await menu.insertOne(mockMenu);
 
@@ -46,13 +46,13 @@ describe('Handlers', () => {
         expect(result).toEqual([mockMenu]);
     });
 
-    test('get single', async () => {
+    test('gets single', async () => {
         const menu = db.collection('menu');
         const result = await menu.find({ _id: '1' }).toArray();
         expect(result).toEqual([mockMenu]);
     });
 
-    test('creates reservation', async () => {
+    test('creates menu', async () => {
         const menu = db.collection('menu');
         await menu.insertOne(mockCreateMenu);
 
@@ -60,14 +60,14 @@ describe('Handlers', () => {
         expect(result).toEqual(mockCreateMenu);
     });
 
-    test('update reservation', async () => {
+    test('updates menu', async () => {
         const menu = db.collection('menu');
         await menu.replaceOne({ _id: '1' }, mockUpdateMenu)
         const result = await menu.find({ _id: '1' }).toArray();
         expect(result).toEqual([mockUpdateMenu]);
     });
 
-    test('delete reservation', async () => {
+    test('deletes menu', async () => {
         const menu = db.collection('menu');
         await menu.deleteOne({ _id: '1' })
         const result = await menu.find({ _id: '1' }).toArray();
