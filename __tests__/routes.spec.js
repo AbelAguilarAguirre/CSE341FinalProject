@@ -15,7 +15,6 @@ describe('insert', () => {
             useUnifiedTopology: true,
         });
         db = await connection.db('restaurant');
-        console.log(db.body);
     })
     afterAll(async () => {
         await connection.close();
